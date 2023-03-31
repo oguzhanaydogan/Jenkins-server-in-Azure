@@ -5,7 +5,18 @@ terraform {
       version = "3.39.1"
     }
   }
+     backend "remote" {
+
+    organization = "ccseyhan"
+
+    workspaces {
+
+      name = "jenkins_server_azure"
+
+    } 
+  }
 }
+
 
 provider "azurerm" {
   features {
