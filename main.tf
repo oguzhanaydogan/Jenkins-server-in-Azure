@@ -5,16 +5,6 @@ terraform {
       version = "3.39.1"
     }
   }
-     backend "remote" {
-
-    organization = "ccseyhan"
-
-    workspaces {
-
-      name = "jenkins_server_azure"
-
-    } 
-  }
 }
 
 
@@ -71,6 +61,9 @@ resource "azurerm_virtual_machine" "vm1" {
   vm_size               = "Standard_D2s_v3"
   delete_os_disk_on_termination = true
   delete_data_disks_on_termination = true
+  identity {
+    type = "SystemAssigned"
+  }
 
   storage_image_reference {
     publisher = "Canonical"
@@ -98,6 +91,18 @@ resource "azurerm_virtual_machine" "vm1" {
 
   }
 }
+}
+
+data "azurerm_subscription" "current" {}
+
+data "azurerm_role_definition" "contributor" {
+  name = "Contributor"
+}
+
+resource "azurerm_role_assignment" "example" {
+  scope              = data.azurerm_subscription.current.id
+  role_definition_id = "${data.azurerm_subscription.current.id}${data.azurerm_role_definition.contributor.id}"
+  principal_id       = azurerm_virtual_machine.vm1.identity[0].principal_id
 }
 
 data "azurerm_ssh_public_key" "ssh_public_key" {
