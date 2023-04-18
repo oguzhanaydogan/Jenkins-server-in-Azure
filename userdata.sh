@@ -1,7 +1,7 @@
 #! /bin/bash
 apt-get update
 
-
+# Install Jenkins
 apt-get install openjdk-11-jdk-headless -y
 curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
   /usr/share/keyrings/jenkins-keyring.asc > /dev/null
@@ -34,7 +34,7 @@ chmod +x /usr/local/bin/docker-compose
 
 
 # Add ec2-user and jenkins to docker group
-usermod -a -G docker ccseyhan
+usermod -a -G docker <username>
 usermod -a -G docker jenkins
 
 

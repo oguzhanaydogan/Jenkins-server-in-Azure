@@ -1,41 +1,31 @@
-variable "rg_name" {
-    default = "jenkins-server"
+variable "prefix" {
+    default = ""
 }
 
 variable "location" {
-    default = "East US"
+    default = ""
 }
-
-variable "vm_name" {
-    default = "vm-with-docker"
-}
-
-variable "vnet_address_space" {
-    default = ["10.0.0.0/16"]
-}
-
-variable "subnet_address_space" {
-    default = ["10.0.1.0/24"]
-}
-
 variable "admin_username" {
-    default = "ccseyhan"
+    default = ""
+    description = "this name has to match with line 37 in sh file"
 }
 
 variable "admin_password" {
-    default = "Password1234"
+    default = ""
 }
 
 variable "ssh_key_name" {
-    default = "azure"
+    default = ""
 }
 
 variable "ssh_key_rg" {
-    default = "sshkey"
+    default = ""
+    description = "ssh key resource group name"
 }
 
 variable "ssh_key_path" {
-    default = "~/main/ssh-keys/"
+    default = ""
+    description = "~/main/ssh-keys/ etc."
 }
 
 
